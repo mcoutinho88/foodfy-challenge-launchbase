@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    {% include "parts/styles.njk" %}
+    
+    {% block head %}
+        <title>Foodfy</title>
+    {% endblock %}
+
+</head>
+<body>
+    
+    
+    {% block header %} {% endblock %}
+    
+    {% block content %} {% endblock %}
+
+    {% include "parts/footer.njk" %}
+
+
+    
+</body>
+
+
+</html>

@@ -1,0 +1,22 @@
+{% extends "admin/layout.njk" %}
+
+{% import "parts/card.njk" as card %}
+{% import "parts/section-recipes.njk" as section %}
+
+
+{% block content %}
+<div class="card chef-show">
+    <div class="card-header chef-header">
+        <h3>Chef: {{chef.name}}</h3>
+        <a class="button" href="/admin/chefs/{{chef.id}}/edit" class="button">Editar Chef</a>
+    </div>
+
+    <div class="chef-details">
+      <img src="{{chef.avatar_url}}" alt="{{chef.name}}">
+      <h2>{{chef.name}}</h1>
+      <span>receitas</span>
+    </div>
+
+    {{section.recipes('Receitas', 'recipe-show', recipes)}}
+</div>
+{% endblock content %}

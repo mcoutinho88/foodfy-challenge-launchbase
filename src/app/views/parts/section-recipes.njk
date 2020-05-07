@@ -1,0 +1,27 @@
+{% macro recipes(name, classes, recipes) %}
+
+  {% if name %}
+    <h2>{{name}}</h2>
+  {% endif %}
+<section class="recipes {{classes}}">
+
+
+  <div class="items">
+    {% for recipe in recipes %}
+        <div class="recipe" id="{{recipe.id}}">
+            <div class="recipe-logo">
+                <img src={{recipe.image}}>
+            </div>
+            <div class="recipe-content">
+                <p>{{recipe.title}}</p>
+                <div class="recipe-info">
+                    <a href="/admin/recipes/{{recipe.id}}">Visualizar</a>
+                </div>
+            </div>
+            
+        </div>
+    {%endfor%}
+  </div>
+</section>
+
+{% endmacro %}

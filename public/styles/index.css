@@ -1,0 +1,258 @@
+@import "https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    min-height: 100vh;
+}
+
+body {
+    background-color:white;
+    font-family: 'Roboto', sans-serif;
+
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 16px 0;
+    width: 100%;
+    text-align: center;
+}
+
+header p {
+    width: 100px;
+}
+
+
+.foodfy {
+    background-color: white;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 48px 0;
+    text-align: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 100px 1fr 360px;
+    align-items: center;
+    grid-gap: 24px;
+    margin: 0 auto;
+    justify-content: center;
+    max-width: 940px;
+}
+
+.foodfy .link {
+    margin-right: 60px;
+    font-size: 16px;
+    color: #111111;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.foodfy .link.active  {
+    font-weight: bold;
+}
+
+.foodfy .link a img {
+    width: 90px;
+    height: 27px;
+}
+.board {
+    width: 940px;
+    height: 366px;
+    margin: 0 auto;
+    background: #FBDFDB;
+    border-radius: 30px 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.board .board-content {
+    margin-top: 120px;
+    margin-left: 60px;
+}
+
+.board .board-content h1 {
+    font-size: 32px;
+}
+
+.board .board-content p {
+    margin-top: 10px;
+    padding-right: 110px;
+}
+.board img {
+    margin-left: 140px;
+    margin-top: 66px;
+}
+
+
+
+.above-recipes {
+    max-width: 940px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 24px;  
+}
+
+
+
+.recipes {
+    max-width: 940px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px
+}
+
+.recipe {
+    cursor: pointer;
+}
+
+.recipe .recipe-logo img {
+    width: 300px;
+    height: 140px;
+    border-radius: 15px;
+}
+
+.recipe .recipe-content{
+    padding-top: 20px;
+    line-height: 21px;
+}
+
+.recipe .recipe-content p{
+    margin: 0;
+}
+
+.recipe .recipe-info p{
+    margin: 5px 0 20px 0px;
+    line-height: 16px;
+    font-size: 14px;
+    color: #777777;
+}
+
+footer {
+    padding: 23px;
+    background-color: #EEEEEE;
+    width: 100%;
+    margin-top: auto;
+    align-items: center;
+    justify-content: center;
+
+}
+
+footer p{
+    color: #999999;
+    line-height: 16px;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+/* ==== ABOUT.HTML ====*/
+
+.about-foodfy, .how-started, .our-recipies {
+    margin: 0 auto;
+    width: 940px;
+}
+
+.about-foodfy strong, .how-started strong, .our-recipies strong {
+    font-size: 20px;
+    color: #111111;
+    line-height: 28px;
+    margin-top: 10px;
+}
+
+
+.about-foodfy p, .how-started p, .our-recipies p {
+    font-size: 18px;
+    color: #444444;
+    line-height: 28px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+
+/* === RECIPES === */
+
+.recipe-image {
+    width: 940px;
+    height: 280px;
+    margin: 0 auto;
+}
+
+.recipe-image img {
+    border-radius: 15px;
+}
+
+.title-wrapper {
+    width: 940px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.title-wrapper h1 {
+    font-size: 36px;
+    line-height: 42px;
+    padding-top: 50px;
+
+}
+
+.title-wrapper p {
+    font-size: 20px;
+    line-height: 24px;
+    margin-top: 5px;
+    color: #777777;
+}
+
+.ingrediente-wrapper, .preparo-wrapper, .info-wrapper {
+    width: 940px;
+    padding-top: 50px;
+    margin: 0 auto;
+    display: block;
+}
+
+.ingrediente-title-wrapper, .preparo-title-wrapper, .info-title-wrapper {
+    font-size: 24px;
+    line-height: 28px;
+    display: flex;
+}
+
+.showHide {
+    align-self: flex-end;
+    margin-left: 10px;
+    font-size: 12px;
+    line-height: 14px;
+    background-color: white;
+    color: #999999;
+    font-weight: bold;
+    text-decoration: underline ;
+    cursor: pointer;
+}
+
+.ingrediente-wrapper ul, .preparo-wrapper ul {
+    padding-top: 20px;
+    padding-left: 18px;
+    font-size: 18px;
+    line-height: 28px;
+}
+
+.ingrediente-content, .preparo-content, .info-content {
+    display: block;
+}
+
+.info-content p {
+    padding-top: 20px;
+    font-size: 18px;
+    line-height: 28px;
+}

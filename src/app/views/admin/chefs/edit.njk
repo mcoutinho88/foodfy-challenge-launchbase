@@ -1,0 +1,24 @@
+{% extends "admin/layout.njk" %}
+
+{% import "parts/card.njk" as card %}
+
+
+{% block content %}
+{% call card.render('', 'chef-edit container') %}
+                
+    <form method="POST" action="/admin/chefs?_method=PUT">
+        <div class="card-header chef-header">
+            <h3>Editando chef</h3>
+            <button class="button-save" type="submit">Salvar</button>   
+        </div>
+            
+            {% include 'admin/chefs/fields.njk' %}
+            <input type="hidden" name="id" value="{{ chef.id }}">
+    </form>
+
+    <form  class="form-delete" method="POST" action="/admin/chefs?_method=DELETE">
+        <button class="button-delete" type="submit">Deletar</button>
+        <input type="hidden" name="id" value="{{ chef.id }}">
+    </form>
+    {% endcall %}
+{% endblock content %}

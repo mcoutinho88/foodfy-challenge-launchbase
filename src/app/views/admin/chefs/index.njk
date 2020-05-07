@@ -1,0 +1,9 @@
+{% extends "admin/layout.njk" %}
+{% import "parts/section-chefs.njk" as section %}
+
+
+{% block content %}
+
+  {{section.chefs('Gerenciar chefs', 'container', chefs)}}
+
+{% endblock %}

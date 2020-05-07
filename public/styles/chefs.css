@@ -1,0 +1,154 @@
+.chefs .items{
+  max-width: 940px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 10px
+}
+
+.chefs h2 {
+  max-width: 940px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 24px; 
+}
+.chef {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+}
+
+.chef .chef-logo{
+  margin-right: 20px;
+}
+.chef .chef-logo img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+.chef .chef-content{
+  margin-top: 8px;
+  line-height: 21px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chef .chef-content p{
+  font-size: 18px;
+  margin: 0;
+}
+.chef .chef-info {
+  margin-top: 8px;
+}
+
+.chef .chef-info a{
+  text-decoration: none;
+  color: #6558C3;
+  font-size: 14px;
+  font-weight: bold; 
+  
+}
+
+
+ /* CHEF CREATE */
+.chef-create,
+.chef-edit,
+.chef-show {
+  max-width: 940px;
+}
+
+.chef-header {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  height: 44px;
+}
+
+.button,
+ .button-save {
+  background-color: #6558c3;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+
+  width: 100%;
+  height: 100%;
+  text-align: center;
+
+ }
+/* .button-save {
+ width: 150px;
+    height: 100%;
+    background-color: #6558c3;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    position:relative;
+} */
+
+ .button-save:hover {
+  opacity: 0.7;
+  cursor: pointer;
+ }
+
+
+  /* CHEF EDIT */
+.chef-edit-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chef-edit-header h3 {
+  justify-self: center;
+}
+.chef-edit-header .actions {
+  display: flex;
+}
+
+/* CHEF SHOW  */
+
+.chef-details {
+  display: flex;
+  flex-direction: column;
+  margin: 32px auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.chef-details img{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+.chef-details h2 {
+  margin-top: 32px;
+  font-size: 36px;
+  line-height: 42px;
+}
+
+.chef-details span{
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #777;
+  margin-top: 12px;
+}
+
+.items {
+  margin-top: 32px;
+}
+
+
+/* .recipe-show .items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 32px;
+
+  margin-top: 32px;
+} */
