@@ -1,4 +1,5 @@
 const Recipe = require('../models/Recipe')
+const Chef = require('../models/Chef')
 const LoadRecipeService = require('../services/LoadRecipeService')
 const LoadChefService = require('../services/LoadChefService')
 
@@ -7,8 +8,20 @@ const LoadChefService = require('../services/LoadChefService')
 module.exports = {
     async index(req,res) {
         const recipes = await LoadRecipeService.load('recipes')
+
+        const recipesPromise = recipes.map(async (recipe) => {
+            let chef = await Chef.findOne({
+              where: {
+                id: recipe.chef_id
+              }
+            })
+            recipe.chef_name = chef.name
+            return recipe
+          })
+    
+          const recipesWithChef = await Promise.all(recipesPromise) 
             
-        return res.render("admin/recipes/index", { recipes })
+        return res.render("admin/recipes/index", { recipes: recipesWithChef })
         
     },
     

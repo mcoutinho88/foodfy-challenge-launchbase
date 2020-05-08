@@ -6,12 +6,9 @@ const foodfy = require('./app/controllers/foodfy')
 
 
 routes.get('/', foodfy.index )
-
 routes.get('/about', foodfy.about)
-
 routes.get('/recipes', foodfy.recipes)
-
-
+routes.get('/recipes/search', foodfy.search)
 routes.get('/recipes/:id', foodfy.recipePage)
 
 routes.get("/admin/recipes", recipes.index); 

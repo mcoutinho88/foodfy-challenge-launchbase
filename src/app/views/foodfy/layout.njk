@@ -13,7 +13,12 @@
             <a class="link" href="/recipes">Receitas</a>
             <a class="link" href="/chefs">Chefs</a>
         </div>
+        <form class="search-form" action="/recipes/search" method="GET">
+            <input type="text" name="filter" placeholder="Buscar pela receita" value="{{ filter }}"/>
+            <button class="button" type="submit">Buscar</button>
+        </form>
     </div>
+  </header>
             
 </header>
 

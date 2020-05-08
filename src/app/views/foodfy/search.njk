@@ -1,18 +1,10 @@
 {% extends "foodfy/layout.njk" %}
 
+
 {% block content %}
- 
-    <div class="board">
-        <div class="board-content">
-            <h1>As melhores receitas</h1>
-            <p>Aprenda a construir os melhores pratos com receitas criadas por profissionais do mundo inteiro.</p>
-        </div>
-        <img src="./layout/assets/119236-OQ05QX-268.png">
-    </div>
 
-    <h1 class="above-recipes-foodfy">Mais acessadas</h1>
-
-    <section class="recipes-foodfy">
+    <h1 class="above-recipes-foodfy">Buscando por '{{search.term}}'</h1>
+     <section class="recipes-foodfy">
 
         {% for recipe in recipes %}
         <div class="recipe-foodfy" id="{{recipe.id}}">
@@ -28,7 +20,8 @@
         </div>
         {% endfor %}
     </section>
+{% endblock %}
 
-
-
+{% block foot %}
+    <script src="/scripts_recipe.js"></script>
 {% endblock %}
