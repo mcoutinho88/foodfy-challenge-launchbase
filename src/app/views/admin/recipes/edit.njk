@@ -2,86 +2,16 @@
 
 {% block content %}
     
-    <form class="recipe-form" action="/admin/recipes?_method=PUT" method="POST">
+    <form class="recipe-form" action="/admin/recipes?_method=PUT" method="POST" enctype="multipart/form-data">
         <div class="head-form">
             <h3>Editando receita</h3>
             <div class="buttons">
                 <input type="hidden" name="id" value={{recipe.id}}>
                 <button type="submit">Salvar receita</button>
-            </div>        
+            </div>   
         </div>       
-        <div class="item">
-            <div>Imagem da receita</div>
-            <div>
-                <input 
-                    type="url" 
-                    name="image"
-                    value="{{recipe.image}}"
-                    >
-            </div>
-        </div>
-        <div class="item">
-            <div>Nome da receita</div>
-            <div>
-                <input 
-                    type="text" 
-                    name="title"
-                    value="{{recipe.title}}"
-                    >
-            </div>
-        </div>
+            {% include "admin/recipes/fields.njk" %}     
         
-        <div id="ingredients">
-            <div>Ingredientes</div>
-            {% for ingredient in recipe.ingredients %}
-            
-            <div class="ingredient">
-                <input 
-                    type="text" 
-                    name="ingredients[]"
-                    value="{{ingredient}}"
-                    placeholder="Ingrediente"
-                    >
-            </div>
-            {% endfor %}
-        </div>
-        <button type="button" class="add-ingredient">Adicionar novo ingrediente</button>
-
-        <div id="modo-preparo">
-            <div>Modo de preparo</div>
-            {% for prep in recipe.preparation %}
-            
-            <div class="modo-prep">
-                <input 
-                    type="text" 
-                    name="preparation[]"
-                    value="{{prep}}"
-                    placeholder="Modo de preparo"
-                    >
-            </div>
-            {% endfor %}
-        </div>
-        <button type="button" class="add-preparation">Adicionar novo passo</button>
-
-        <div class="item">
-            <div>Chef</div>
-            <div>
-                <select name="chef">
-                    {% for chef in chefOptions %}
-                    <option value="{{chef.id}}" {% if recipe.chef_id == chef.id %}selected{% endif %} >
-                        {{chef.name}}
-                    </option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-
-        <div class="item">
-            <div>Informações adicionais</div>
-                <div>
-                    <textarea name="information" >{{recipe.information}}</textarea>
-                </div>
-        </div>    
     </form>
     <form class="form-delete" action="/admin/recipes?_method=DELETE" method="post">
             
@@ -89,6 +19,47 @@
             <button type="submit">Deletar receita</button>
             
     </form>  
-      
+    
+    <script>
+        function addIngredient() {
+            const ingredients = document.querySelector("#ingredients");
+            const fieldContainer = document.querySelectorAll(".ingredient");
+
+            // Realiza um clone do último ingrediente adicionado
+            const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+
+            // Não adiciona um novo input se o último tem um valor vazio
+            if (newField.children[0].value == "") return false;
+
+            // Deixa o valor do input vazio
+            newField.children[0].value = "";
+            ingredients.appendChild(newField);
+        }
+
+        function addPreparation() {
+            const preparation = document.querySelector("#modo-preparo");
+            const fieldContainer = document.querySelectorAll(".modo-prep");
+
+            // Realiza um clone do último ingrediente adicionado
+            const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+
+            // Não adiciona um novo input se o último tem um valor vazio
+            if (newField.children[0].value == "") return false;
+
+            // Deixa o valor do input vazio
+            newField.children[0].value = "";
+            preparation.appendChild(newField);
+        }
+
+
+        document
+        .querySelector(".add-ingredient")
+        .addEventListener("click", addIngredient);
+
+        document
+        .querySelector(".add-preparation")
+        .addEventListener("click", addPreparation);
+    
+    </script>
 
 {% endblock %}

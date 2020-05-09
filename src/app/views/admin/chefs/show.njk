@@ -12,9 +12,9 @@
     </div>
 
     <div class="chef-details">
-      <img src="{{chef.avatar_url}}" alt="{{chef.name}}">
+      <img src="{{chef.files[0].file_path}}" alt="{{chef.name}}">
       <h2>{{chef.name}}</h1>
-      <span>receitas</span>
+      <span>{{chef.total_recipes}} receitas</span>
     </div>
 
     {{section.recipes('Receitas', 'recipe-show', recipes)}}

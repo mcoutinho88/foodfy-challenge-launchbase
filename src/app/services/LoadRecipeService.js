@@ -1,23 +1,22 @@
 const Recipe = require('../models/Recipe')
-const Chef = require('../models/Chef')
 
 //const { formatPrice, date } = require('../lib/utils')
 
 
-// async function getImages(recipeId) {
-//     let files = await Chef.files(recipeId)
-//     files = files.map(file => ({
-//         ...file,
-//         src: `${file.path.replace("public","").replace(/\\/g,"\\\\")}`
-//     }))
+async function getImages(recipeId) {
+    let files = await Recipe.files(recipeId)
+    files = files.map(file => ({
+        ...file,
+        file_path: `${file.file_path.replace("public","")}`   
+     }))
 
-//     return files
-// }
+    return files
+}
 
 async function format(recipe) {
-    // const files = await getImages(recipe.id)
+    const files = await getImages(recipe.id)
     // recipe.img = files[0].src
-    // recipe.files = files
+    recipe.files = files
     // recipe.formattedPrice = formatPrice(recipe.price)
     // recipe.formattedOldPrice = formatPrice(recipe.old_price)
 

@@ -9,13 +9,33 @@
         <h3>Receita: {{recipe.title}}</h3>
         <a href="/admin/recipes/{{recipe.id}}/edit" class="button">Editar receita</a>
     </div>
-    <div class="recipe-image">
-        <img src={{recipe.image}} alt="">
+    <div class="gallery">
+        <div class="highlight">
+        {% if not recipe.files[0] %}
+            <img src="http://placehold.it/500x500?text=PRODUTO SEM FOTO"/>
+        {% else %}
+            <img src="{{ recipe.files[0].file_path }}" alt="{{ recipe.files[0].name }}" onclick="Lightbox.open()"/>
+        {% endif %}
+
+        <div class="lightbox-target">
+            <img src="{{ recipe.files[0].file_path }}" alt="{{ recipe.files[0].name }}"/>
+            <a href="#" class="lightbox-close" onclick="Lightbox.close()">
+            <i class="material-icons">close</i>
+            </a>
+        </div>
+        </div>
+        <div class="gallery-preview">
+        {% for image in recipe.files %}
+            <img src="{{ image.file_path }}" alt="{{
+        recipe.title
+        }}" {% if loop.index0 == 0 %} class="active" {% endif %} onclick="ImageGallery.setImage(event)">
+        {% endfor %}
+        </div>
     </div>
 
     <div class="title-wrapper">
         <h1 class="title">{{recipe.title}}</h1>
-        <p class="author">por {{recipe.chef_name}}</p>
+        <p class="author">por {{chef.name}}</p>
     </div>
 
     <div class="ingrediente-wrapper">
@@ -55,4 +75,57 @@
             <p>{{recipe.information}}</p>
         </div>
     </div>    
+
+    <script>
+        const ingredientContent = document.querySelector('.ingrediente-content');
+        const ingredientShowHide = document.getElementById("ingrediente")
+
+        const preparoContent = document.querySelector('.preparo-content');
+        const preparoShowHide = document.getElementById("preparo")
+
+        const infoContent = document.querySelector('.info-content');
+        const infoShowHide = document.getElementById("info")
+
+        ingredientShowHide.onclick = function(){
+            console.log("button pressed")
+            if(ingredientContent.style.display == "none"){
+                ingredientContent.style.display = "block"
+                ingredientShowHide.textContent = "Esconder"
+            }
+            else
+            {
+                ingredientContent.style.display = "none"
+                ingredientShowHide.textContent = "Mostrar"
+
+            }
+        }
+
+        preparoShowHide.onclick = function(){
+            console.log("button pressed")
+            if(preparoContent.style.display == "none"){
+                preparoContent.style.display = "block"
+                preparoShowHide.textContent = "Esconder"
+            }
+            else
+            {
+                preparoContent.style.display = "none"
+                preparoShowHide.textContent = "Mostrar"
+
+            }
+        }
+
+        infoShowHide.onclick = function(){
+            console.log("button pressed")
+            if(infoContent.style.display == "none"){
+                infoContent.style.display = "block"
+                infoShowHide.textContent = "Esconder"
+            }
+            else
+            {
+                infoContent.style.display = "none"
+                infoShowHide.textContent = "Mostrar"
+
+            }
+        }
+    </script>
 {% endblock %}

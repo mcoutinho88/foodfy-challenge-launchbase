@@ -7,16 +7,19 @@ async function getImages(chefId) {
     let files = await Chef.files(chefId)
     files = files.map(file => ({
         ...file,
-        src: `${file.path.replace("public","").replace(/\\/g,"\\\\")}`
+        file_path: `${file.path.replace("public","")}`
     }))
 
     return files
 }
 
+
 async function format(chef) {
-    // const files = await getImages(chef.id)
+    const files = await getImages(chef.file_id)
+    const total_recipes = await Chef.countRecipes(chef.id)
     // chef.img = files[0].src
-    // chef.files = files
+    chef.files = files
+    chef.total_recipes = total_recipes
     // chef.formattedPrice = formatPrice(chef.price)
     // chef.formattedOldPrice = formatPrice(chef.old_price)
 

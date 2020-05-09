@@ -2,12 +2,53 @@
 
 {% block content %}
  
-    <form class="recipe-form" action="/admin/recipes" method="POST">
+    <form class="recipe-form" action="/admin/recipes" method="POST" enctype="multipart/form-data">
         <div class="head-form">
             <h3>Criando receita</h3>
             <button type="submit">Salvar receita</button>
         </div>
         {% include "admin/recipes/fields.njk" %}
     </form>
+
+<script>
+        function addIngredient() {
+            const ingredients = document.querySelector("#ingredients");
+            const fieldContainer = document.querySelectorAll(".ingredient");
+
+            // Realiza um clone do último ingrediente adicionado
+            const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+
+            // Não adiciona um novo input se o último tem um valor vazio
+            if (newField.children[0].value == "") return false;
+
+            // Deixa o valor do input vazio
+            newField.children[0].value = "";
+            ingredients.appendChild(newField);
+        }
+
+        function addPreparation() {
+            const preparation = document.querySelector("#modo-preparo");
+            const fieldContainer = document.querySelectorAll(".modo-prep");
+
+            // Realiza um clone do último ingrediente adicionado
+            const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+
+            // Não adiciona um novo input se o último tem um valor vazio
+            if (newField.children[0].value == "") return false;
+
+            // Deixa o valor do input vazio
+            newField.children[0].value = "";
+            preparation.appendChild(newField);
+        }
+
+
+        document
+        .querySelector(".add-ingredient")
+        .addEventListener("click", addIngredient);
+
+        document
+        .querySelector(".add-preparation")
+        .addEventListener("click", addPreparation);
+</script>
 
 {% endblock %}

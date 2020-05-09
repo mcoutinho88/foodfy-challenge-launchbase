@@ -18,92 +18,240 @@ for (item of menuItems) {
 }
 
 
-const ingredientContent = document.querySelector('.ingrediente-content');
-const ingredientShowHide = document.getElementById("ingrediente")
 
-const preparoContent = document.querySelector('.preparo-content');
-const preparoShowHide = document.getElementById("preparo")
+const PhotosUpload = {
+    input:"",
+    preview: document.querySelector('#photos-preview'),
+    uploadLimit:5,
 
-const infoContent = document.querySelector('.info-content');
-const infoShowHide = document.getElementById("info")
+    files: [],
+    handleFileInput(event) {
+        const { files: fileList } = event.target
+        PhotosUpload.input = event.target
 
-ingredientShowHide.onclick = function(){
-    console.log("button pressed")
-    if(ingredientContent.style.display == "none"){
-        ingredientContent.style.display = "block"
-        ingredientShowHide.textContent = "Esconder"
+        if(PhotosUpload.hasLimit(event)) return
+
+        Array.from(fileList).forEach( file => {
+
+            PhotosUpload.files.push(file)
+
+            const reader = new FileReader()
+
+
+            reader.onload = () => {
+                const image = new Image()
+                image.src = String(reader.result)
+
+                const div = PhotosUpload.getContainer(image)
+
+                PhotosUpload.preview.appendChild(div)
+
+            }
+
+            reader.readAsDataURL(file)
+        })
+
+        PhotosUpload.input.files = PhotosUpload.getAllFiles()
+    },
+
+    hasLimit(event) {
+
+        const { uploadLimit, input, preview } = PhotosUpload
+        const { files: fileList } = input
+
+        if (fileList.length > uploadLimit ) {
+            alert(`Envie no maximo ${uploadLimit} fotos`)
+            event.preventDefault()
+            return true
+        }
+
+        const photosDiv = []
+        preview.childNodes.forEach(item => {
+            if(item.classList && item.classList.value == "photo"){
+                photosDiv.push(item)
+            }
+        })
+
+        const totalPhotos = fileList.length + photosDiv.length
+
+        if(totalPhotos > uploadLimit){
+            alert("Voce atingiu o limite maximo de fotos")
+            event.preventDefault()
+            return true
+        }
+        return false
+    },
+    getAllFiles(){
+        
+        const dataTransfer = new ClipboardEvent("").clipboardData || new dataTransfer()
+
+        PhotosUpload.files.forEach(file => dataTransfer.items.add(file))
+
+        return dataTransfer.files
+    },
+
+    getContainer(image) {
+        const container = document.createElement('div')
+        container.classList.add('photo')
+
+        container.onclick = PhotosUpload.removePhoto
+
+        container.appendChild(image)
+
+        container.appendChild(PhotosUpload.getRemoveButton())
+
+        return container
+    },
+    getRemoveButton() {
+        const button = document.createElement('i')
+        button.classList.add('material-icons')
+        button.innerHTML = "close"
+        return button
+    },
+    removePhoto(event) {
+        const photoDiv = event.target.parentNode //<div class="photo"
+        const photosArr = Array.from(PhotosUpload.preview.children)
+        const index = photosArr.indexOf(photoDiv)
+
+        PhotosUpload.files.splice(index, 1)
+        PhotosUpload.input.files = PhotosUpload.getAllFiles()
+
+        photoDiv.remove()
+    },
+    removeOldPhoto(event) {
+        const photoDiv = event.target.parentNode
+
+        if(photoDiv.id) {
+            const removedFiles = document.querySelector('input[name="removed_files"')
+            if(removedFiles){
+                removedFiles.value += `${photoDiv.id},`
+            }
+        }
+
+        photoDiv.remove()
     }
-    else
-    {
-        ingredientContent.style.display = "none"
-        ingredientShowHide.textContent = "Mostrar"
 
+}
+
+const ImageGallery = {
+    highlight: document.querySelector('.gallery .highlight > img'),
+    previews: document.querySelectorAll('.gallery-preview img'),
+    setImage(e) {
+        const { target } = e
+        
+        ImageGallery.previews.forEach(preview => preview.classList.remove('active'))
+
+        target.classList.add('active')
+        
+        ImageGallery.highlight.src = target.src
+        Lightbox.image.src = target.src
+    }
+    
+}
+
+const Lightbox = {
+    target: document.querySelector('.lightbox-target'),
+    image: document.querySelector('.lightbox-target img'),
+    closeButton: document.querySelector('.lightbox-target a.lightbox-close'),
+    open() {
+        Lightbox.target.style.opacity = 1
+        Lightbox.target.style.top = 0
+        Lightbox.target.style.bottom = 0
+        Lightbox.closeButton.style.top = 0
+    },
+    close() {
+        Lightbox.target.style.opacity = 0
+        Lightbox.target.style.top = "-100%"
+        Lightbox.target.style.bottom = "initial"
+        Lightbox.closeButton.style.top = "-80px"
     }
 }
 
-preparoShowHide.onclick = function(){
-    console.log("button pressed")
-    if(preparoContent.style.display == "none"){
-        preparoContent.style.display = "block"
-        preparoShowHide.textContent = "Esconder"
-    }
-    else
-    {
-        preparoContent.style.display = "none"
-        preparoShowHide.textContent = "Mostrar"
 
+const Validate = {
+    apply(input, func) {
+
+        Validate.clearErrors(input)
+
+        let results = Validate[func](input.value)
+        input.value = results.value
+
+        if(results.error)
+            Validate.displayError(input, results.error)
+
+    },
+    displayError(input,error) {
+        const div = document.createElement('div')
+        div.classList.add('error')
+        div.innerHTML = error
+        input.parentNode.appendChild(div)
+
+        input.focus()
+    },
+    clearErrors(input) {
+        const errorDiv = input.parentNode.querySelector(".error")
+        if(errorDiv)
+            errorDiv.remove()
+
+    },
+    isEmail(value) {
+        let error = null
+        const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+        if(!value.match(mailFormat))
+            error = "Email Invalido"
+        
+        return {
+            error,
+            value
+        }
+    },
+    isCpfCnpj(value) {
+        let error = null
+
+        const cleanValues = value.replace(/\D/g, "")
+
+        if(cleanValues.length > 11 && cleanValues.length !== 14 ){
+            error = "CNPJ invalido"
+        }
+        else if (cleanValues.length < 12 && cleanValues.length !== 11) {
+            error = "CPF invalido"
+        }
+
+        return {
+            error,
+            value
+        }
+    },
+    isCep(value) {
+        let error = null
+
+        const cleanValues = value.replace(/\D/g, "")
+
+        if(cleanValues.length !== 8 ){
+            error = "CEP invalido"
+        }
+        
+        
+        return {
+            error,
+            value
+        }
+    },
+    allFields(e) {
+        const items = document.querySelectorAll(' .item input, .item select, .item textarea')
+
+        for (item of items) {
+            if(item.value == ""){
+                const message = document.createElement('div')
+                message.classList.add('messages')
+                message.classList.add('error')
+                message.style.position = 'fixed'
+                message.innerHTML = 'Todos os campos sao obrigatorios.'
+                document.querySelector('body').append(message)
+
+                e.preventDefault()
+            }
+        }
     }
 }
-
-infoShowHide.onclick = function(){
-    console.log("button pressed")
-    if(infoContent.style.display == "none"){
-        infoContent.style.display = "block"
-        infoShowHide.textContent = "Esconder"
-    }
-    else
-    {
-        infoContent.style.display = "none"
-        infoShowHide.textContent = "Mostrar"
-
-    }
-}
-
-function addIngredient() {
-    const ingredients = document.querySelector("#ingredients");
-    const fieldContainer = document.querySelectorAll(".ingredient");
-
-    // Realiza um clone do último ingrediente adicionado
-    const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
-
-    // Não adiciona um novo input se o último tem um valor vazio
-    if (newField.children[0].value == "") return false;
-
-    // Deixa o valor do input vazio
-    newField.children[0].value = "";
-    ingredients.appendChild(newField);
-}
-
-function addPreparation() {
-    const preparation = document.querySelector("#modo-preparo");
-    const fieldContainer = document.querySelectorAll(".modo-prep");
-
-    // Realiza um clone do último ingrediente adicionado
-    const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
-
-    // Não adiciona um novo input se o último tem um valor vazio
-    if (newField.children[0].value == "") return false;
-
-    // Deixa o valor do input vazio
-    newField.children[0].value = "";
-    preparation.appendChild(newField);
-}
-
-
-document
-.querySelector(".add-ingredient")
-.addEventListener("click", addIngredient);
-
-document
-.querySelector(".add-preparation")
-.addEventListener("click", addPreparation);

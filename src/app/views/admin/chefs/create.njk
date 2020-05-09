@@ -4,8 +4,8 @@
 
 
 {% block content %}
-{% call card.render('', 'chef-create container') %}
-      <form  method="POST" action="/admin/chefs">
+{% call card.render('', 'chef-create') %}
+      <form action="/admin/chefs" method="POST" enctype="multipart/form-data">
         <div class="card-header chef-header">
             <h3>Criando chef</h3>
             <button class="button-save" type="submit">Salvar</button>
@@ -15,5 +15,5 @@
         
 
       </form>
-    {% endcall %}
+{% endcall %}
 {% endblock content %}

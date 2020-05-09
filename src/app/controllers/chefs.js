@@ -1,5 +1,8 @@
 const Chef = require('../models/Chef')
 const Recipe = require('../models/Recipe')
+const File = require('../models/File')
+const RecipeFile = require('../models/RecipeFile')
+
 const LoadChefService = require('../services/LoadChefService')
 const LoadRecipeService = require('../services/LoadRecipeService')
 
@@ -34,7 +37,7 @@ module.exports = {
 
             return res.render("admin/chefs/show", { chef, recipes })
 
-
+ 
         } catch (error) {
             console.error(error)
         }
@@ -57,21 +60,29 @@ module.exports = {
     
     async post(req,res) {
         try {
-                        
-            let { name, avatar_url } = req.body
+            const keys = Object.keys(req.body);
 
+            for (key of keys) {
+                if (req.body[key] == "") 
+                    return res.send("Please, fill all the fields!");
+            }
+                    
+            if (req.files.length == 0) 
+                return res.send("Por favor, envie pelo menos uma imagem")
+            
+
+            const fileId = await File.create({
+                name: req.files[0].filename,
+                path: req.files[0].path
+            })
+            
+            
             const chefId = await Chef.create({ 
-                name, 
-                avatar_url
+                name: req.body.name, 
+                file_id: fileId
             })
 
-            // const filesPromise = req.files.map(file =>  File.create({ 
-            //     name: file.filename,
-            //     path: file.path, 
-            //     product_id: productId 
-            // }))
-            // await Promise.all(filesPromise)
-
+        
             return res.redirect(`/admin/chefs/${chefId}/edit`)
 
         } catch (error) {
@@ -84,26 +95,61 @@ module.exports = {
     },
     
     async put(req,res) {
-        
-        const keys = Object.keys(req.body)
-
-        for(key of keys) {
-            if (req.body[key] == "") {
-                return res.send('Please, fill all fields!')
+        try {
+            const keys = Object.keys(req.body)
+    
+            for(key of keys) {
+                if (req.body[key] == "" && key != "removed_files") {
+                    return res.send('Please, fill all fields!')
+                }
             }
+    
+            if (req.files.length != 0) {
+                fileId = await File.create({
+                    name: req.files[0].filename,
+                    path: req.files[0].path
+                })
+            }
+            
+            if (req.body.removed_files) {
+                const removedFiles = req.body.removed_files.split(",")
+                const lastIndex = removedFiles.length-1
+                removedFiles.splice(lastIndex,1)
+
+                await File.deleteFilesFromStorage(removedFiles)
+            }
+
+            await Chef.update(req.body.id, {
+                name: req.body.name,
+                file_id: fileId
+            })
+    
+            return res.redirect(`/admin/chefs/${req.body.id}/edit`)
+            
+        } catch (error) {
+            console.error(error)
         }
-
-        await Chef.update(req.body.id, {
-            name: req.body.name,
-            avatar_url: req.body.avatar_url
-        })
-
-        return res.redirect(`/admin/chefs/${req.body.id}/edit`)
     },
     
     async delete(req,res) {
-        await Chef.delete(req.body.id)
-        return res.redirect('/admin/chefs')
+        try {
+            const chef = await LoadChefService.load('chef', {
+                where: {
+                    id: req.body.id
+                }
+            })
+
+            if(chef.total_recipes > 0)
+                return res.send("Você não deve deletar um chef com receitas!")
+
+            await Chef.delete(req.body.id)
+            await File.deleteFilesFromStorage(chef.file_id)
+            return res.redirect('/admin/chefs')
+
+        } catch (error) {
+            console.error(error)
+        }
+
     },
 
     

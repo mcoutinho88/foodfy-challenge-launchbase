@@ -53,7 +53,9 @@ const Base = {
                 // name, age, address
 
                 keys.push(key)
-                values.push(`'${fields[key]}'`)
+                if(key == 'ingredients' || key == 'preparation') {
+                    values.push(`'{${fields[key]}}'`)
+                  } else values.push(`'${fields[key]}'`)
 
                 //values
                 //'Matheus', '26', 'Rua algo'
@@ -78,9 +80,13 @@ const Base = {
             
             Object.keys(fields).map(key => {
                 // category_id = ($1)
-
-                const line = `${key} = '${fields[key]}'`
-                update.push(line)
+                if(key == 'ingredients' || key == 'preparation'){
+                    const line = `${key} = '{${fields[key]}}'`
+                    update.push(line)
+                } else {
+                    const line = `${key} = '${fields[key]}'`
+                    update.push(line)
+                }
             })
     
             let query = `UPDATE ${this.table} SET

@@ -4,9 +4,9 @@
 
 
 {% block content %}
-{% call card.render('', 'chef-edit container') %}
+{% call card.render('', 'chef-edit') %}
                 
-    <form method="POST" action="/admin/chefs?_method=PUT">
+    <form method="POST" action="/admin/chefs?_method=PUT" enctype="multipart/form-data">
         <div class="card-header chef-header">
             <h3>Editando chef</h3>
             <button class="button-save" type="submit">Salvar</button>   

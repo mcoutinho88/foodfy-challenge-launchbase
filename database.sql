@@ -1,37 +1,37 @@
-CREATE TABLE "recipes" (
-  "id" SERIAL PRIMARY KEY,
-  "chef_id" int,
-  "title" text,
-  "ingredients" text[],
-  "preparation" text[],
-  "information" text,
-  "created_at" timestamp DEFAULT 'now()',
-  "updated_at" timestamp DEFAULT 'now()'
-);
-
 CREATE TABLE "chefs" (
   "id" SERIAL PRIMARY KEY,
-  "name" text,
-  "file_id" int,
-  "created_at" timestamp DEFAULT 'now()'
+  "name" text NOT NULL,
+  "file_id" int NOT NULL,
+  "created_at" timestamp DEFAULT(now()),
+  "updated_at" timestamp DEFAULT(now())
 );
 
-CREATE TABLE "files" (
+CREATE TABLE "recipes" (
   "id" SERIAL PRIMARY KEY,
-  "name" text,
-  "path" text
+  "user_id" int NOT NULL,
+  "chef_id" int NOT NULL,
+  "title" text NOT NULL,
+  "ingredients" text[] NOT NULL,
+  "preparation" text[] NOT NULL,
+  "information" text NOT NULL,
+  "created_at" timestamp DEFAULT(now()),
+  "updated_at" timestamp DEFAULT(now())
 );
+
+ALTER TABLE "recipes" ADD FOREIGN KEY ("chef_id") REFERENCES "chefs" ("id") ON DELETE CASCADE;
 
 CREATE TABLE "recipe_files" (
   "id" SERIAL PRIMARY KEY,
-  "recipe_id" int,
-  "file_id" int
+  "recipe_id" int NOT NULL,
+  "file_id" int NOT NULL
 );
 
-ALTER TABLE "recipes" ADD FOREIGN KEY ("chef_id") REFERENCES "chefs" ("id");
+ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "files" ADD FOREIGN KEY ("id") REFERENCES "chefs" ("file_id");
+CREATE TABLE "files" (
+  "id" SERIAL PRIMARY KEY,
+  "name" text NOT NULL,
+  "path" text NOT NULL,
+);
 
-ALTER TABLE "recipes" ADD FOREIGN KEY ("id") REFERENCES "recipe_files" ("recipe_id");
-
-ALTER TABLE "files" ADD FOREIGN KEY ("id") REFERENCES "recipe_files" ("file_id");
+ALTER TABLE "recipe_files" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id") ON DELETE CASCADE;

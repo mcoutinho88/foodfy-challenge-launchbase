@@ -191,7 +191,6 @@ body {
 .button {
     text-decoration: none;
     text-align: center;
-    padding-top: 8px
 }
 
 .head-form button:hover,
@@ -225,11 +224,10 @@ body {
     border-radius: 4px;
     margin-top: 10px;
     font-size: 20px;
-    padding-left: 8px;
     width: 100%;
-    padding-top: 8px;
     box-sizing: border-box;
     height: 40px;
+    padding: 8px;
 }
 
 .item textarea {
