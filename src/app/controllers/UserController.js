@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const crypto = require('crypto')
 const { hash } = require('bcryptjs')
+const mailer = require('../lib/mailer')
 
 module.exports = {
   create(req,res) {
@@ -27,8 +28,8 @@ module.exports = {
 
     if (!is_admin) is_admin = false
 
-    //const password = crypto.randomBytes(4).toString('hex')
-    const password = '1111'
+    const password = crypto.randomBytes(4).toString('hex')
+    // const password = '1111'
     const passwordHash = await hash(password,8)
     
     await User.create({
@@ -37,6 +38,17 @@ module.exports = {
       password: passwordHash,
       is_admin
     })
+
+    await mailer.sendMail({
+      to: email,
+      from: "no-reply@foodfy.com.br",
+      subject: "Bem vindo ao Foodfy!",
+      html: `
+            <h1>Bem vindo ao Foodfy!</h1>
+            <p>Segue a sua nova senha para acesso ao site:${password}</p>
+            `,
+    });
+
     return res.redirect('/admin/users')
   },
   async put(req,res) {
@@ -61,9 +73,15 @@ module.exports = {
   async delete(req,res) {
     try {
       await User.delete(req.body.id)
-      return res.render('admin/users/index')
+      return res.render('admin/users/index', {
+        success: "Conta deletada com sucesso",
+      })
     } catch (error) {
       console.error(error)
+      return res.render("user/index", {
+        user: req.body,
+        error: "Erro ao tentar deletar a sua conta",
+      })
     }
 
   }

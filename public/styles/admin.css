@@ -22,7 +22,7 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 100px 1fr 360px;
+    grid-template-columns: 100px 1fr 200px;
     align-items: center;
     grid-gap: 24px;
     margin: 0 auto;
@@ -54,6 +54,43 @@ body {
     
     padding-top: 10px;
     margin: 20px auto;
+}
+
+.admin-header .user-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-header .user-options .my-account {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    transition: 200ms;
+    margin-right: 32px;
+}
+
+
+.admin-header .user-options .my-account i {
+    margin-right: 4px;
+}
+
+.admin-header form {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.admin-header form a.link {
+    color: #fff;
+    text-transform: uppercase;
+    transition: 200ms;
+}
+
+.admin-header .user-options .my-account:hover,
+.admin-header form a.link:hover {
+    cursor: pointer;
+    opacity: 0.7;
 }
 
 .above-recipes {
