@@ -1,0 +1,157 @@
+.user-create, .user-edit {
+  max-width: 940px;
+}
+
+.user-header {
+  display: grid;
+  grid-template-columns: 1fr 160px 150px;
+  height: 44px;
+  margin-bottom: 32px;
+}
+
+.user-header button {
+  margin-right: 10px;
+  width: 150px;
+}
+
+.user-header a{
+  background-color: #999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  color: white;
+  text-decoration: none;
+}
+
+.user-header a:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.user-create .fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 32px;
+}
+
+.user-create .fields .check-text {
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.user-create .fields input[type="checkbox"] {
+  width: initial;
+  margin-top: 0;
+  margin-right: 16px;
+}
+
+ /* USER LIST */
+
+.users-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 54px auto 72px auto;
+  max-width: 940px;
+}
+
+.users-header a {
+  background: #7159c1;
+  border-radius: 4px;
+  padding: 10px 50px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 200ms;
+}
+
+.users-header a:hover{
+  opacity: 0.7;
+}
+
+.users-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px 200px;
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.users-items .name {
+  font-size: 18px;
+  color: #111111;
+}
+
+.users-items .email {
+  font-size: 14px;
+  color: #777777;
+  margin-top: 4px;
+}
+
+.users-items .user-actions {
+  display: flex;
+  margin-top: 16px;
+}
+
+.users-items .user-actions a {
+  font-size: 14px;
+  color: #6558c3;
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 200ms;
+}
+
+.users-items .user-actions a:hover{
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.users-items .user-actions .remove {
+  font-size: 14px;
+  color: #f55a5a;
+  background-color: initial;
+  margin-left: 16px;
+  font-weight: bold;
+  padding-bottom: 2px;
+  transition: 200ms;
+
+}
+
+.users-items .user-actions .remove:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+
+/* USER EDIT  */
+.user-edit .user-header {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  height: 44px;
+  margin-bottom: 32px;
+}
+
+.user-edit .fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 32px;
+}
+
+.user-edit .fields .check-text {
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.user-edit .fields input[type="checkbox"] {
+  width: initial;
+  margin-top: 0;
+  margin-right: 16px;
+}
+
+.for

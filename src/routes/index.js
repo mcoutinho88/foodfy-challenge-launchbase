@@ -3,6 +3,9 @@ const routes = express.Router()
 const recipes = require('../app/controllers/recipes')
 const chefs = require('../app/controllers/chefs')
 const foodfy = require('../app/controllers/foodfy')
+const UserController = require('../app/controllers/UserController')
+const ProfileController = require('../app/controllers/ProfileController')
+
 
 const multer = require('../app/middlewares/multer')
 
@@ -35,6 +38,16 @@ routes.post("/admin/chefs", multer.array("photos", 1), chefs.post)
 routes.put("/admin/chefs", multer.array("photos", 1), chefs.put)
 routes.delete("/admin/chefs", chefs.delete)
 
+// Rotas de perfil de um usuário logado
+// routes.get('/admin/profile', ProfileController.index) // Mostrar o formulário com dados do usuário logado
+// routes.put('/admin/profile', ProfileController.put)// Editar o usuário logado
 
+// Rotas que o administrador irá acessar para gerenciar usuários
+routes.get('/admin/users/create', UserController.create) //Mostrar a lista de usuários cadastrados
+routes.get('/admin/users/:id/edit', UserController.edit) //Mostrar a lista de usuários cadastrados
+routes.get('/admin/users', UserController.list) //Mostrar a lista de usuários cadastrados
+routes.post('/admin/users', UserController.post) //Cadastrar um usuário
+routes.put('/admin/users', UserController.put) // Editar um usuário
+routes.delete('/admin/users', UserController.delete) // Deletar um usuário
 
 module.exports = routes
