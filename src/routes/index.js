@@ -20,6 +20,7 @@ routes.get('/about', FoodfyController.about)
 routes.get('/recipes', FoodfyController.recipes)
 routes.get('/recipes/search', FoodfyController.search)
 routes.get('/recipes/:id', FoodfyController.recipePage)
+routes.get('/chefs', FoodfyController.chefs)
 
 routes.get("/admin/recipes", onlyUsers, RecipeController.index); 
 routes.get("/admin/recipes/create", onlyUsers, RecipeController.create)

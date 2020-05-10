@@ -1,6 +1,6 @@
 const Recipe = require('../models/Recipe')
 
-//const { formatPrice, date } = require('../lib/utils')
+const { date } = require('../lib/utils')
 
 
 async function getImages(recipeId) {
@@ -15,16 +15,13 @@ async function getImages(recipeId) {
 
 async function format(recipe) {
     const files = await getImages(recipe.id)
-    // recipe.img = files[0].src
     recipe.files = files
-    // recipe.formattedPrice = formatPrice(recipe.price)
-    // recipe.formattedOldPrice = formatPrice(recipe.old_price)
 
-    // const { day, hour, minutes, month } = date(recipe.updated_at)
-    //         recipe.published = {
-    //             day: `${day}/${month}`,
-    //             hour: `${hour}:${minutes}`
-    //         }
+    const { day, hour, minutes, month } = date(recipe.updated_at)
+            recipe.published = {
+                day: `${day}/${month}`,
+                hour: `${hour}:${minutes}`
+            }
     
     return recipe
   
@@ -55,14 +52,14 @@ const LoadService = {
             console.error(error)
         }
     },
-    // async recipeWithDeleted() {
-    //     try {
-    //         let recipe = await Recipe.findOneWithDeleted(this.filter)
-    //         return format(recipe)
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-    // },
+    async recipeWithDeleted() {
+        try {
+            let recipe = await Recipe.findOneWithDeleted(this.filter)
+            return format(recipe)
+        } catch (error) {
+            console.error(error)
+        }
+    },
     format,
 }
 

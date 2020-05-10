@@ -8,15 +8,14 @@
 
 .chefs h2 {
   max-width: 940px;
-    font-weight: bold;
-    margin-top: 50px;
-    margin-bottom: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 24px; 
+  font-weight: bold;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 24px; 
 }
 .chef {
-  cursor: pointer;
   display: grid;
   grid-template-columns: 0.5fr 1fr;
 }
@@ -58,7 +57,8 @@
 .chef-create,
 .chef-edit,
 .chef-show {
-  max-width: 940px;
+  width: 940px;
+  margin: 32px auto;
 }
 
 .chef-header {
@@ -149,10 +149,16 @@
 }
 
 
-/* .recipe-show .items {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 32px;
 
-  margin-top: 32px;
-} */
+/* FOODFY CHEFS  */
+.foodfy-chefs h2 {
+  max-width: 940px;
+  font-weight: bold;
+  margin: 32px auto;
+  font-size: 24px; 
+}
+
+.foodfy-chefs .total-recipes {
+  font-size: 16px;
+  color: #777;
+}

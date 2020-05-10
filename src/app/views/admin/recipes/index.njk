@@ -1,10 +1,15 @@
 {% extends "admin/layout.njk" %}
 
+{% block head %}
+  <title>Receitas - Foodfy</title>
+{% endblock %}
+
 {% block content %}
  
-
-    <h1 class="above-recipes">Gerenciar receitas</h1>
-
+    <div class="above-recipes-admin">
+        <h3>Gerenciar receitas</h3>
+        <a href="/admin/recipes/create">Criar receita</a>
+    </div>
     <section class="recipes">
 
         {% for recipe in recipes %}

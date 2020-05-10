@@ -1,0 +1,18 @@
+{% extends "foodfy/layout.njk" %}
+{% import "parts/section-chefs.njk" as section %}
+
+{% block head %}
+  <title>Receitas - Foodfy</title>
+{% endblock %}
+
+
+{% block content %}
+
+{{section.chefs('Chefs', 'foodfy-chefs', chefs)}}
+
+
+{% endblock %}
+
+    {% block foot %}
+    <script src="/scripts.js"></script>
+    {% endblock %}

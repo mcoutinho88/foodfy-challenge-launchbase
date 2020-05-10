@@ -1,6 +1,7 @@
 const Chef = require('../models/Chef')
 const Recipe = require('../models/Recipe')
 const LoadRecipeService = require('../services/LoadRecipeService')
+const LoadChefService = require('../services/LoadChefService')
 
 
 module.exports = {
@@ -55,7 +56,9 @@ module.exports = {
 
       let recipes = await Recipe.search( filter )
 
-      recipes = await Promise.all(recipes)
+      const recipePromise = recipes.map(LoadRecipeService.format)
+      
+      recipes = await Promise.all(recipePromise)
       const search = {
         term: req.query.filter,
         total: recipes.length
@@ -88,5 +91,10 @@ module.exports = {
     } catch (error) {
       console.error(error)
     } 
-  }        
+  },
+  async chefs(req,res) {
+    const chefs = await LoadChefService.load('chefs')
+
+    return res.render("foodfy/chefs", { chefs })
+}        
 }

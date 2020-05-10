@@ -133,7 +133,8 @@ header p {
     gap: 10px
 }
 
-.recipes-foodfy {
+
+.recipe-foodfy:hover {
     cursor: pointer;
 }
 
@@ -141,6 +142,7 @@ header p {
     width: 300px;
     height: 140px;
     border-radius: 15px;
+    object-fit: contain;
 }
 
 .recipe-foodfy .recipe-content{
@@ -365,4 +367,6 @@ footer p{
     justify-content: center;
   
     transition: 400ms;
+
+    text-decoration: none;
   }

@@ -9,7 +9,7 @@
         {% for recipe in recipes %}
         <div class="recipe-foodfy" id="{{recipe.id}}">
             <div class="recipe-logo">
-                <img src={{recipe.image}}>
+                <img src={{recipe.files[0].file_path}}>
             </div>
             <div class="recipe-content">
                 <p>{{recipe.title}}</p>
@@ -20,8 +20,17 @@
         </div>
         {% endfor %}
     </section>
+
+<script>
+const recipes = document.querySelectorAll('.recipe-foodfy');
+
+for (let recipe of recipes){
+    recipe.addEventListener('click', function() {
+        const imgId = recipe.getAttribute('id');
+        window.location.href = `/recipes/${imgId}`;
+    }
+    )
+}
+</script>
 {% endblock %}
 
-{% block foot %}
-    <script src="/scripts_recipe.js"></script>
-{% endblock %}

@@ -1,6 +1,6 @@
 const Chef = require('../models/Chef')
 
-//const { formatPrice, date } = require('../lib/utils')
+const { date } = require('../lib/utils')
 
 
 async function getImages(chefId) {
@@ -17,17 +17,14 @@ async function getImages(chefId) {
 async function format(chef) {
     const files = await getImages(chef.file_id)
     const total_recipes = await Chef.countRecipes(chef.id)
-    // chef.img = files[0].src
     chef.files = files
     chef.total_recipes = total_recipes
-    // chef.formattedPrice = formatPrice(chef.price)
-    // chef.formattedOldPrice = formatPrice(chef.old_price)
 
-    // const { day, hour, minutes, month } = date(chef.updated_at)
-    //         chef.published = {
-    //             day: `${day}/${month}`,
-    //             hour: `${hour}:${minutes}`
-    //         }
+    const { day, hour, minutes, month } = date(chef.updated_at)
+            chef.published = {
+                day: `${day}/${month}`,
+                hour: `${hour}:${minutes}`
+            }
     
     return chef
   

@@ -97,11 +97,11 @@ module.exports = {
             if (req.files.length == 0) 
                 return res.send("Por favor, envie pelo menos uma imagem")
               
-            let { chef, title, information, ingredients, preparation } = req.body
+            let { chef, user_id, title, information, ingredients, preparation } = req.body
             
             const recipeId = await Recipe.create({
                 chef_id: chef,
-                user_id: 1,
+                user_id,
                 title,
                 ingredients,
                 preparation,

@@ -153,3 +153,33 @@
   margin-top: 0;
   margin-right: 16px;
 }
+
+/* USER PROFILE  */
+.user-profile {
+  width: 940px;
+  margin: 32px auto;
+}
+
+.user-header-profile {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  height: 40px;
+}
+
+.user-header-profile a {
+  background-color: #999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  color: white;
+  text-decoration: none;
+}
+
+.user-profile .fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 32px;
+
+  margin-bottom: 64px;
+}

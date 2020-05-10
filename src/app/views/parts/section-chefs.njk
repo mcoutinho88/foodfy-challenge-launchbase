@@ -14,9 +14,16 @@
             </div>
             <div class="chef-content">
                 <p>{{chef.name}}</p>
+                {% if classes == "foodfy-chefs" %}
+                <div class="chef-info">
+                    <p class="total-recipes">{{chef.total_recipes}} receitas</p>
+                </div>
+                {% else %}
                 <div class="chef-info">
                     <a href="/admin/chefs/{{chef.id}}">Visualizar</a>
                 </div>
+
+                {% endif %}
             </div>
             
         </div>

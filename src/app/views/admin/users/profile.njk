@@ -3,29 +3,29 @@
 
 {% block content %}
 
-  <section class="user-create admin">
+  <section class="user-profile admin">
     <form method="POST" action="/admin/profile?_method=PUT">
 
-      <div class="card-header user-header">
+      <div class="card-header user-header-profile">
         <h3>Bem vindo
           {{user.name}}</h3>
           <button class="button-save" type="submit">Salvar</button>
       </div>
       <div class="fields">
         <div class="item">
-          <p>Nome</p>
+          <div>Nome</div>
           <div class="input">
             <input type="text" name="name" placeholder="Digite seu nome completo" value="{{ user.name }}"/>
           </div>
         </div>
         <div class="item">
-          <p>Email</p>
+          <div>Email</div>
           <div class="input">
             <input type="email" name="email" placeholder="Digite seu email" value="{{ user.email }}" onblur="Validate.apply(this, 'isEmail')"/>
           </div>
         </div>
         <div class="item">
-          <p>Senha</p>
+          <div>Senha</div>
           <div class="input">
             <input type="password" name="password" placeholder="Digite sua senha"/>
           </div>
